@@ -8,7 +8,8 @@ public class MemberServiceImpl implements MemberService{
     private final MemberRepository memberRepository;
     // 이렇게하면 더이상 memorymemberrepository에 대한 내용이 없음
     // 구현에 대한 의존이 없어지고 역할에만 의존하게 변함함
-   public MemberServiceImpl(MemberRepository memberRepository) {
+
+    public MemberServiceImpl(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
     }
 
