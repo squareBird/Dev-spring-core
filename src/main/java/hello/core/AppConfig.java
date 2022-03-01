@@ -34,8 +34,7 @@ public class AppConfig {
 
     // 할인 역할
     private DiscountPolicy discountPolicy() {
-//        return new DiscountPolicyImpl();
-        return new RateDiscountPolicy();
+        return new DiscountPolicyImpl();
     }
 
 }
