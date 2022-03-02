@@ -20,21 +20,41 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class AppConfig {
 
+    // 이러면 각각 다른 두개이ㅡ MemoryMemberRepository 생성되는 것 처럼 보이면서 싱글톤이 깨지는 것 처럼 보인다.
+    // @Bean memberService -> new MemoryMemberRepository()
+    // @Bean orderService -> new MemoryMemberRepository()
+
+    // 상상
+    //call AppConfig.memberService
+    //call AppConfig.memberRepository
+    //call AppConfig.memberRepository
+    //call AppConfig.orderService
+    //call AppConfig.memberRepository
+
+    // 실제
+    //call AppConfig.memberService
+    //call AppConfig.memberRepository
+    //call AppConfig.orderService
+
+
     // 멤버 서비스 역할
     @Bean
     public MemberService memberService() {
+        System.out.println("call AppConfig.memberService");
         return new MemberServiceImpl(memberRepository());
     }
 
     // 저장소 역할
     @Bean
     public MemberRepository memberRepository() {
+        System.out.println("call AppConfig.memberRepository");
         return new MemoryMemberRepository();
     }
 
     // 오더 서비스 역할
     @Bean
     public OrderService orderService() {
+        System.out.println("call AppConfig.orderService");
         return new OrderServiceImpl(memberRepository(), discountPolicy());
     }
 
