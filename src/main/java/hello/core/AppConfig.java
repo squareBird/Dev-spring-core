@@ -17,6 +17,8 @@ import org.springframework.context.annotation.Configuration;
 // 코드의 중복 제거
 // 구현영역과 사용영역이 완전하게 분리됨
 // 구현은 AppConfig에서 다 해주고 실제 사용은 OrderServiceImpl, MemberServiceImpl 등에서 함
+
+// @Configuration을 지우면 CGLIB이 적용되지 않음
 @Configuration
 public class AppConfig {
 
@@ -24,7 +26,7 @@ public class AppConfig {
     // @Bean memberService -> new MemoryMemberRepository()
     // @Bean orderService -> new MemoryMemberRepository()
 
-    // 상상
+    // 상상 -> Configuration을 주석처리 하면 CGLIB 사용안해서 memberRepository가 이것처럼 3개 올라옴
     //call AppConfig.memberService
     //call AppConfig.memberRepository
     //call AppConfig.memberRepository
