@@ -13,6 +13,9 @@ public class AutoAppConfigTest {
 
     @Test
     void basicScan() {
+        // 여기서 왜 스프링이 올라가는걸까?
+        // new AnnotationConfigApplicationContext(AutoAppConfig.class); 때문일까?
+        // AutoAppConfig에 Configuration과 Component Scan이 있어서인가
         AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(AutoAppConfig.class);
 
         MemberService memberService = ac.getBean(MemberService.class);
