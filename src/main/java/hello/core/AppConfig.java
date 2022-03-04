@@ -58,8 +58,8 @@ public class AppConfig {
     public OrderService orderService() {
         System.out.println("call AppConfig.orderService");
 
-//        return new OrderServiceImpl(memberRepository(), discountPolicy()); // 생성자 없애면 이거 오류남
-        return null;
+        return new OrderServiceImpl(memberRepository(), discountPolicy()); // 생성자 없애면 이거 오류남
+
     }
 
     // 할인 역할
