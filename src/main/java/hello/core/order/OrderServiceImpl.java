@@ -4,10 +4,11 @@ import hello.core.discount.DiscountPolicy;
 import hello.core.member.Member;
 import hello.core.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component // ("service")
-@RequiredArgsConstructor // final이 붙은 변수들을 파라미터로 받는 생성자를 자동으로 만듬
+//@RequiredArgsConstructor // final이 붙은 변수들을 파라미터로 받는 생성자를 자동으로 만듬
 public class OrderServiceImpl implements OrderService{
 
 //    private final DiscountPolicy discountPolicy = new RateDiscountPolicy();
@@ -16,8 +17,12 @@ public class OrderServiceImpl implements OrderService{
     // 누군가가 OrderServiceImpl 클래스의 discountPolicy 객체에 구현 객체를 대신 생성하고 주입해 주어야 함
 
     final private MemberRepository memberRepository;
-    final private DiscountPolicy rateDiscountPolicy; // 이렇게 파라미터 이름으로 빈을 추가 매칭할 수 있다. 이러면 xml 부분 오류 발생
+    final private DiscountPolicy discountPolicy; // 이렇게 파라미터 이름으로 빈을 추가 매칭할 수 있다. 이러면 xml 부분 오류 발생
 
+    public OrderServiceImpl(MemberRepository memberRepository, @Qualifier("mainDiscountPolicy") DiscountPolicy discountPolicy) {
+        this.memberRepository = memberRepository;
+        this.discountPolicy = discountPolicy;
+    }
 ////    @Autowired 생성자 하나만 있으면 생략 가능
 //    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
 //        // final을 넣었을때 생성 누락되면 오류 발생!
@@ -31,7 +36,7 @@ public class OrderServiceImpl implements OrderService{
     public Order createOrder(Long memberId, String itemName, int itemPrice) {
 
         Member member = memberRepository.findById(memberId);
-        int discountPrice = rateDiscountPolicy.discount(member, itemPrice);
+        int discountPrice = discountPolicy.discount(member, itemPrice);
 
         return new Order(memberId, itemName, itemPrice, discountPrice);
     }
