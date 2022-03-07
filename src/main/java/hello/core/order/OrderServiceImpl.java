@@ -19,7 +19,7 @@ public class OrderServiceImpl implements OrderService{
     final private MemberRepository memberRepository;
     final private DiscountPolicy discountPolicy; // 이렇게 파라미터 이름으로 빈을 추가 매칭할 수 있다. 이러면 xml 부분 오류 발생
 
-    public OrderServiceImpl(MemberRepository memberRepository, @Qualifier("mainDiscountPolicy") DiscountPolicy discountPolicy) {
+    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
         this.memberRepository = memberRepository;
         this.discountPolicy = discountPolicy;
     }
