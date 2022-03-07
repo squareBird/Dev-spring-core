@@ -1,5 +1,6 @@
 package hello.core.order;
 
+import hello.core.annotation.MainDiscountPolicy;
 import hello.core.discount.DiscountPolicy;
 import hello.core.member.Member;
 import hello.core.member.MemberRepository;
@@ -19,7 +20,7 @@ public class OrderServiceImpl implements OrderService{
     final private MemberRepository memberRepository;
     final private DiscountPolicy discountPolicy; // 이렇게 파라미터 이름으로 빈을 추가 매칭할 수 있다. 이러면 xml 부분 오류 발생
 
-    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
+    public OrderServiceImpl(MemberRepository memberRepository, @MainDiscountPolicy DiscountPolicy discountPolicy) {
         this.memberRepository = memberRepository;
         this.discountPolicy = discountPolicy;
     }
