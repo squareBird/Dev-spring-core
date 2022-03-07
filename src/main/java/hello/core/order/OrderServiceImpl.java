@@ -12,22 +12,17 @@ import org.springframework.stereotype.Component;
 @Component // ("service")
 public class OrderServiceImpl implements OrderService{
 
-    private MemberRepository memberRepository;
+    final private MemberRepository memberRepository;
 //    private final DiscountPolicy discountPolicy = new RateDiscountPolicy();
     // 이렇게하면 new RateDiscountPolicy() 즉 구현에 의존하던 부분은 빼고 역할에만 의존함
     // 그냥 이렇게 하면 NullPointException
     // 누군가가 OrderServiceImpl 클래스의 discountPolicy 객체에 구현 객체를 대신 생성하고 주입해 주어야 함
-    private DiscountPolicy discountPolicy;
+    final private DiscountPolicy discountPolicy;
+
 
     public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
+        // final을 넣었을때 생성 누락되면 오류 발생!
         System.out.println("1. OrderServiceImpl.OrderServiceImpl 생성자!");
-        this.memberRepository = memberRepository;
-        this.discountPolicy = discountPolicy;
-    }
-
-    // 일반 메소드 주입
-    @Autowired
-    public void init(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
         this.memberRepository = memberRepository;
         this.discountPolicy = discountPolicy;
     }
