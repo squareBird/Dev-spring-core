@@ -1,13 +1,9 @@
 package hello.core.order;
 
 import hello.core.discount.DiscountPolicy;
-import hello.core.discount.DiscountPolicyImpl;
-import hello.core.discount.RateDiscountPolicy;
 import hello.core.member.Member;
 import hello.core.member.MemberRepository;
-import hello.core.member.MemoryMemberRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component // ("service")
@@ -20,7 +16,7 @@ public class OrderServiceImpl implements OrderService{
     // 누군가가 OrderServiceImpl 클래스의 discountPolicy 객체에 구현 객체를 대신 생성하고 주입해 주어야 함
 
     final private MemberRepository memberRepository;
-    final private DiscountPolicy discountPolicy;
+    final private DiscountPolicy rateDiscountPolicy; // 이렇게 파라미터 이름으로 빈을 추가 매칭할 수 있다. 이러면 xml 부분 오류 발생
 
 ////    @Autowired 생성자 하나만 있으면 생략 가능
 //    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
@@ -35,7 +31,7 @@ public class OrderServiceImpl implements OrderService{
     public Order createOrder(Long memberId, String itemName, int itemPrice) {
 
         Member member = memberRepository.findById(memberId);
-        int discountPrice = discountPolicy.discount(member, itemPrice);
+        int discountPrice = rateDiscountPolicy.discount(member, itemPrice);
 
         return new Order(memberId, itemName, itemPrice, discountPrice);
     }

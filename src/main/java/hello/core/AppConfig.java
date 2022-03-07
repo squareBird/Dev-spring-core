@@ -1,8 +1,7 @@
 package hello.core;
 
 import hello.core.discount.DiscountPolicy;
-import hello.core.discount.DiscountPolicyImpl;
-import hello.core.discount.RateDiscountPolicy;
+import hello.core.discount.FixDiscountPolicy;
 import hello.core.member.MemberRepository;
 import hello.core.member.MemberService;
 import hello.core.member.MemberServiceImpl;
@@ -58,15 +57,15 @@ public class AppConfig {
     public OrderService orderService() {
         System.out.println("call AppConfig.orderService");
 
-//        return new OrderServiceImpl(memberRepository(), discountPolicy()); // 생성자 없애면 이거 오류남
-        return null;
+        return new OrderServiceImpl(memberRepository(), discountPolicy()); // 생성자 없애면 이거 오류남
+//        return null;
 
     }
 
     // 할인 역할
     @Bean
     public DiscountPolicy discountPolicy() {
-        return new DiscountPolicyImpl();
+        return new FixDiscountPolicy();
     }
 
 }
