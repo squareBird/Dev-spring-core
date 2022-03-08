@@ -3,7 +3,7 @@ package hello.core.lifecycle;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 
-// javax는 자바에서 공식 지원 하는거여서 스프링 아니어도 사용 가능
+// javax는 자바에서 공식 지원 하는거여서 스프링 아니어도 사용 가능d
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
