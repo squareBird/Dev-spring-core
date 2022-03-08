@@ -3,6 +3,10 @@ package hello.core.lifecycle;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 
+// javax는 자바에서 공식 지원 하는거여서 스프링 아니어도 사용 가능
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+
 public class NetworkClient {
 
     private String url;
@@ -30,12 +34,13 @@ public class NetworkClient {
     }
 
     // 의존관계 주입후에 해당 메소드 호출
+    @PostConstruct
    public void init() throws Exception {
        System.out.println("NetworkClient.init");
        connect();
        call("초기화 연결 메시지");
    }
-
+   @PreDestroy
    public void close() throws Exception {
        System.out.println("NetworkClient.close");
        disconnect();
