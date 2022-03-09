@@ -2,6 +2,7 @@ package hello.core.lifecycle;
 
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.context.annotation.Bean;
 
 // javax는 자바에서 공식 지원 하는거여서 스프링 아니어도 사용 가능d
 import javax.annotation.PostConstruct;
